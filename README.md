@@ -11,11 +11,12 @@ sudo apt autoremove -y
 - Install PostgreSQL
 ```shell
 sudo apt install postgresql postgresql-contrib
+sudo -u postgres psql
 ```
 - Create database and user
 ```shell
 CREATE DATABASE universe;
-CREATE USER  WITH PASSWORD 'password';
+CREATE USER WITH PASSWORD 'password';
 ALTER ROLE spaceman SET client_encoding TO 'utf8';
 ALTER ROLE spaceman SET default_transaction_isolation TO 'read committed';
 ALTER ROLE spaceman SET timezone TO 'UTC';
