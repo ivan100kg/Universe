@@ -16,7 +16,7 @@ sudo -u postgres psql
 - Create database and user
 ```shell
 CREATE DATABASE universe;
-CREATE USER WITH PASSWORD '12345';
+CREATE USER spaceman WITH PASSWORD '12345';
 ALTER ROLE spaceman SET client_encoding TO 'utf8';
 ALTER ROLE spaceman SET default_transaction_isolation TO 'read committed';
 ALTER ROLE spaceman SET timezone TO 'UTC';
