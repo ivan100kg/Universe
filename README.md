@@ -14,12 +14,12 @@ sudo apt install postgresql postgresql-contrib
 ```
 - Create database and user
 ```shell
-CREATE DATABASE myproject;
-CREATE USER myprojectuser WITH PASSWORD 'password';
-ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
-ALTER ROLE myprojectuser SET default_transaction_isolation TO 'read committed';
-ALTER ROLE myprojectuser SET timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE myproject TO myprojectuser;
+CREATE DATABASE universe;
+CREATE USER  WITH PASSWORD 'password';
+ALTER ROLE spaceman SET client_encoding TO 'utf8';
+ALTER ROLE spaceman SET default_transaction_isolation TO 'read committed';
+ALTER ROLE spaceman SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE universe TO spaceman;
 \q
 ```
 - Create a virtual environment
