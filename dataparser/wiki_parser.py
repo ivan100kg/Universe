@@ -17,10 +17,11 @@ def main():
         tag_a = row.find('a')
         cleaned_data = {}
         if tag_a and 'wiki' in tag_a['href']:
-            cleaned_data['name'] = tag_a.text.strip()
+            cleaned_data['name_ru'] = tag_a.text.strip()
             cleaned_data['link'] = 'https://ru.wikipedia.org/'+tag_a['href']
             slug = tag_a.find_next('td')
             cleaned_data['slug'] = slug['data-sort-value'].strip().replace(' ', '_').lower()
+            cleaned_data['name'] = slug['data-sort-value'].strip()
             short_name = slug.find_next('td').find_next('td')
             cleaned_data['short_name'] = short_name.text.strip()
             square = short_name.find_next('td')
