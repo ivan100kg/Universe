@@ -10,6 +10,7 @@ class Constellation(models.Model):
     square = models.IntegerField()
     total_stars = models.IntegerField()
     symbol = models.CharField(max_length=200)
+    zodiac = models.BooleanField(null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('constellation_detail', kwargs={'slug': self.slug})

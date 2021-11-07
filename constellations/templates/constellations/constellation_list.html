@@ -12,7 +12,9 @@
         <th>IAU</th>
         <th>Square</th>
         <th>Total stars</th>
+        <th>Zodiac</th>
         <th>Symbol</th>
+
     </tr>
     {% for constellation in object_list %}
     <tr>
@@ -21,6 +23,13 @@
         <td>{{ constellation.short_name }}</td>
         <td>{{ constellation.square }}</td>
         <td>{{ constellation.total_stars }}</td>
+        <td>
+            {% if constellation.zodiac == True %}
+                +
+            {% else %}
+                -
+            {% endif %}
+        </td>
         <td><img style="width:20px;" alt="" src="{{ constellation.symbol }}"></td>
     </tr>
     {% endfor %}
