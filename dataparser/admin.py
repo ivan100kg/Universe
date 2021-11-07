@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from constellations.models import Constellation, Star
+
+admin.site.register(Constellation)
+admin.site.register(Star)
