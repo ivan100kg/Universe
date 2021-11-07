@@ -32,11 +32,8 @@ def main():
             symbol = re.sub('/20px-.*', '', symbol)
             cleaned_data['symbol'] = symbol
             constellations.append(cleaned_data)
-            'https://upload.wikimedia.org/wikipedia/commons/8/8f/Andromeda_symbol_%28Moskowitz%2C_fixed_width%29.svg'
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Andromeda_symbol_%28Moskowitz%2C_fixed_width%29.svg/20px-Andromeda_symbol_%28Moskowitz%2C_fixed_width%29.svg.png'
     return constellations
 
 
 if __name__ == '__main__':
-    for i in main():
-        print(i)
+    print(len(main()))
