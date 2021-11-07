@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Constellations</title>
+</head>
+<body>
+<table class="constellations">
+    <tr>
+        <th>Name</th>
+        <th>Name RU</th>
+        <th>IAU</th>
+        <th>Square</th>
+        <th>Total stars</th>
+        <th>Symbol</th>
+    </tr>
+    {% for constellation in object_list %}
+    <tr>
+        <td>{{ constellation.name }}</td>
+        <td>{{ constellation.name_ru }}</td>
+        <td>{{ constellation.short_name }}</td>
+        <td>{{ constellation.square }}</td>
+        <td>{{ constellation.total_stars }}</td>
+        <td><img style="width:20px;" alt="" src="{{ constellation.symbol }}"></td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

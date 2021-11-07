@@ -6,3 +6,7 @@ from constellations.models import Constellation
 
 class ConstellationsListView(ListView):
     model = Constellation
+
+
+
+
