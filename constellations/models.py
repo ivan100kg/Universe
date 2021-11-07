@@ -9,7 +9,7 @@ class Constellation(models.Model):
     short_name = models.CharField(max_length=3, unique=True)
     square = models.IntegerField()
     total_stars = models.IntegerField()
-    symbol = models.FileField(upload_to='symbols/')
+    symbol = models.CharField(max_length=200)
 
     def get_absolute_url(self):
         return reverse('constellation_detail', kwargs={'slug': self.slug})
