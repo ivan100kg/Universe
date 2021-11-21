@@ -1,7 +1,11 @@
 from django.urls import path
+from rest_framework.routers import SimpleRouter
 
 from constellations.views import *
 
-urlpatterns = [
-    path('', ConstellationsListView.as_view(), name='constellations_list'),
-]
+
+router = SimpleRouter()
+router.register('constellations', ConstellationsViewSet)
+
+urlpatterns = []
+urlpatterns += router.urls

@@ -1,12 +1,11 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.views.generic import ListView
+from rest_framework.viewsets import ModelViewSet
 from constellations.models import Constellation
-from dataparser.wiki_parser import main
+from constellations.serializers import ConstellationSerializer
 
 
-class ConstellationsListView(ListView):
-    model = Constellation
+class ConstellationsViewSet(ModelViewSet):
+    queryset = Constellation.objects.all()
+    serializer_class = ConstellationSerializer
 
 
 
