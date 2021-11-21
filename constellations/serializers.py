@@ -2,7 +2,7 @@ from rest_framework import serializers
 from constellations.models import *
 
 
-class ConstellationSerializer(serializers.HyperlinkedModelSerializer):
+class ConstellationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Constellation
-        fields = ['url', 'name', 'name_ru']
+        fields = ['id', 'name', 'name_ru']
