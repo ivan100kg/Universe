@@ -11,6 +11,7 @@ class Constellation(models.Model):
     total_stars = models.IntegerField()
     symbol = models.CharField(max_length=200)
     zodiac = models.BooleanField(null=True, blank=True)
+    owner = models.ForeignKey('auth.User', related_name='constellations', on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse('constellation_detail', kwargs={'slug': self.slug})
