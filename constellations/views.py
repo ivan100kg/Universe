@@ -24,6 +24,32 @@ def constellations_list(request):
         return JsonResponse(serializer.errors, status=400)
 
 
+@csrf_exempt
+def constellation_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        constellation = Constellation.objects.get(pk=pk)
+    except Constellation.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = ConstellationSerializer(constellation)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = ConstellationSerializer(constellation, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        constellation.delete()
+        return HttpResponse(status=204)
+
 # from rest_framework import permissions
 # from rest_framework.viewsets import ModelViewSet
 #
