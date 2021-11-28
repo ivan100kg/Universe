@@ -8,8 +8,11 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from django.http import Http404
+from rest_framework.views import APIView
 
-#
+
+# ------------------- without DRF ---------------------------------
 # @csrf_exempt
 # def constellations_list(request):
 #     """
@@ -54,19 +57,64 @@ from rest_framework.response import Response
 #     elif request.method == 'DELETE':
 #         constellation.delete()
 #         return HttpResponse(status=204)
+# ===============================================================================================
 
+# ------------------- with @api_viw functions ---------------------------------
+# @api_view(['GET', 'POST'])
+# def constellations_list(request, format=None):
+#     """
+#     List all code snippets, or create a new snippet.
+#     """
+#     if request.method == 'GET':
+#         snippets = Constellation.objects.all()
+#         serializer = ConstellationSerializer(snippets, many=True)
+#         return Response(serializer.data)
+#
+#     elif request.method == 'POST':
+#         serializer = ConstellationSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+#
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def constellation_detail(request, pk, format=None):
+#     """
+#     Retrieve, update or delete a code snippet.
+#     """
+#     try:
+#         snippet = Constellation.objects.get(pk=pk)
+#     except Constellation.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+#
+#     if request.method == 'GET':
+#         serializer = ConstellationSerializer(snippet)
+#         return Response(serializer.data)
+#
+#     elif request.method == 'PUT':
+#         serializer = ConstellationSerializer(snippet, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+#     elif request.method == 'DELETE':
+#         snippet.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET', 'POST'])
-def constellations_list(request, format=None):
+# ------------------- with classes(APIView) ---------------------------------
+class ConstellationsList(APIView):
     """
-    List all code snippets, or create a new snippet.
+    List all snippets, or create a new snippet.
     """
-    if request.method == 'GET':
+
+    def get(self, request, format=None):
         snippets = Constellation.objects.all()
         serializer = ConstellationSerializer(snippets, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request, format=None):
         serializer = ConstellationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -74,28 +122,32 @@ def constellations_list(request, format=None):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def constellation_detail(request, pk, format=None):
+class ConstellationDetail(APIView):
     """
-    Retrieve, update or delete a code snippet.
+    Retrieve, update or delete a snippet instance.
     """
-    try:
-        snippet = Constellation.objects.get(pk=pk)
-    except Constellation.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
+    def get_object(self, pk):
+        try:
+            return Constellation.objects.get(pk=pk)
+        except Constellation.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
         serializer = ConstellationSerializer(snippet)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
+    def put(self, request, pk, format=None):
+        snippet = self.get_object(pk)
         serializer = ConstellationSerializer(snippet, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        snippet = self.get_object(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

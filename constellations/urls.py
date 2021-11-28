@@ -10,8 +10,8 @@ router = SimpleRouter()
 # router.register('constellations', ConstellationsViewSet)
 
 urlpatterns = [
-    path('constellations/', constellations_list),
-    path('constellations/<int:pk>/', constellation_detail),
+    path('constellations/', ConstellationsList.as_view()),
+    path('constellations/<int:pk>/', ConstellationDetail.as_view()),
 ]
 urlpatterns += router.urls
 urlpatterns = format_suffix_patterns(urlpatterns)
