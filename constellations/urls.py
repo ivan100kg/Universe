@@ -5,7 +5,9 @@ from constellations.views import *
 
 
 router = SimpleRouter()
-router.register('constellations', ConstellationsViewSet)
+# router.register('constellations', ConstellationsViewSet)
 
-urlpatterns = []
+urlpatterns = [
+    path('', constellations_list)
+]
 urlpatterns += router.urls
