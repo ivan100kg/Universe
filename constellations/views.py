@@ -1,5 +1,5 @@
 from constellations.models import Constellation
-from constellations.serializers import ConstellationSerializer
+from constellations.serializers import ConstellationSerializer, UserSerializer
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -197,12 +197,21 @@ class ConstellationsList(generics.ListCreateAPIView):
 class ConstellationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Constellation.objects.all()
     serializer_class = ConstellationSerializer
+
+
 # ===============================================================================================
 
+from django.contrib.auth.models import User
 
 
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 # from rest_framework import permissions
 # from rest_framework.viewsets import ModelViewSet

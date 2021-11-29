@@ -12,6 +12,8 @@ router = SimpleRouter()
 urlpatterns = [
     path('constellations/', ConstellationsList.as_view()),
     path('constellations/<int:pk>/', ConstellationDetail.as_view()),
+    path('users/', UserList.as_view()),
+    path('users/<int:pk>/', UserDetail.as_view()),
 ]
 urlpatterns += router.urls
 urlpatterns = format_suffix_patterns(urlpatterns)
