@@ -5,4 +5,5 @@ from constellations.models import *
 class ConstellationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Constellation
-        fields = ['id', 'name', 'name_ru']
+        # fields = ['id', 'name', 'name_ru']
+        fields = '__all__'
