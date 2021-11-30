@@ -4,10 +4,12 @@ from django.contrib.auth.models import User
 
 
 class ConstellationSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = Constellation
-        # fields = ['id', 'name', 'name_ru']
-        fields = '__all__'
+        fields = ['id', 'name', 'owner']
+        # fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):
