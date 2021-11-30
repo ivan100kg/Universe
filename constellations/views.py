@@ -1,4 +1,5 @@
 from constellations.models import Constellation
+from constellations.permissions import IsOwnerOrReadOnly
 from constellations.serializers import ConstellationSerializer, UserSerializer
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -189,26 +190,31 @@ from rest_framework import generics
 # ===============================================================================================
 
 # ------------------- with generic class-based views ---------------------------------
+from rest_framework import permissions
+
 class ConstellationsList(generics.ListCreateAPIView):
     queryset = Constellation.objects.all()
     serializer_class = ConstellationSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class ConstellationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Constellation.objects.all()
     serializer_class = ConstellationSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
 
 
 # ===============================================================================================
 
 from django.contrib.auth.models import User
-from rest_framework import permissions
+
 
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):   # заполнить овнера из запроса
         serializer.save(owner=self.request.user)
@@ -217,7 +223,7 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 # from rest_framework import permissions
 # from rest_framework.viewsets import ModelViewSet
