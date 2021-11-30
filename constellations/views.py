@@ -15,7 +15,6 @@ from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
 
-
 # ------------------- without DRF ---------------------------------
 # @csrf_exempt
 # def constellations_list(request):
@@ -192,6 +191,7 @@ from rest_framework import generics
 # ------------------- with generic class-based views ---------------------------------
 from rest_framework import permissions
 
+
 class ConstellationsList(generics.ListCreateAPIView):
     queryset = Constellation.objects.all()
     serializer_class = ConstellationSerializer
@@ -204,19 +204,18 @@ class ConstellationDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 
-
 # ===============================================================================================
 
 from django.contrib.auth.models import User
 
 
-
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):   # заполнить овнера из запроса
+    def perform_create(self, serializer):  # заполнить овнера из запроса
         serializer.save(owner=self.request.user)
 
 
